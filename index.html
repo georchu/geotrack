@@ -50,7 +50,7 @@
         h1 {
             font-size: 32pt;
             font-weight: 800;
-            line-weight: 1.2;
+            line-height: 1.2;
             color: #FFFFFF;
             letter-spacing: -1px;
             margin: 0 0 20px 0;
@@ -156,6 +156,7 @@
             color: #ADDB67;
             overflow-x: auto;
             border: 1px solid #1E2937;
+            line-height: 1.5;
         }
         .code-key { color: #7FDBCA; }
         .code-val { color: #ECC48D; }
@@ -223,10 +224,8 @@
 
             <div class="hero-cta">
                 <div class="cta-title">🎯 Scan your industry keywords before your competitors do</div>
-                <!-- 激活真实后端：将 action 替换为你的 Formspree 专属 URL -->
                 <form action="https://formspree.io/f/mrewowez" method="POST" class="form-group">
                     <div class="form-input-cell">
-                        <!-- name="email" 是 Formspree 解析所必须的 -->
                         <input type="email" name="email" placeholder="Enter your work email (e.g., alex@yourcompany.com)" required>
                     </div>
                     <div class="form-btn-cell">
@@ -245,17 +244,17 @@
                     🛰️ Live Agent Output (Structured Core JSON)
                 </div>
                 <pre class="code-block">{
-    <span class="code-key">"keyword"</span>: <span class="code-val">"free cash flow valuation and dcf analysis on ios"</span>,
-    <span class="code-key">"target_brand"</span>: <span class="code-val">"FCFBuddy"</span>,
+    <span class="code-key">"keyword"</span>: <span class="code-val" id="json-keyword">"free cash flow valuation and dcf analysis on ios"</span>,
+    <span class="code-key">"target_brand"</span>: <span class="code-val">"<span id="json-target-brand">FCFBuddy</span>"</span>,
     <span class="code-key">"brand_mentioned"</span>: <span class="code-bool">false</span>,
     <span class="code-key">"rank"</span>: <span class="code-val">0</span>,
     <span class="code-key">"competitors_mentioned"</span>: [
-        <span class="code-val">"DCF Valuation App"</span>,
+<span id="json-competitor-list">        <span class="code-val">"DCF Valuation App"</span>,
         <span class="code-val">"onbalance: cash flow tracker"</span>,
         <span class="code-val">"Apple Numbers"</span>,
-        <span class="code-val">"MoneyPatrol"</span>
+        <span class="code-val">"MoneyPatrol"</span></span>
     ],
-    <span class="code-key">"summary"</span>: <span class="code-val">"The text discusses various elite tools for cash flow valuation but does not mention 'FCFBuddy'."</span>
+    <span class="code-key">"summary"</span>: <span class="code-val">"The text discusses various elite tools for cash flow valuation but does not mention '<span id="json-summary-brand">FCFBuddy</span>'."</span>
 }</pre>
             </div>
 
@@ -304,8 +303,9 @@
             &copy; 2026 GEOTrack Corporation. Built for the One-Person AI Company Era. All rights reserved.
         </footer>
     </div>
+
     <script>
-        // 🧙‍♂️ 纯前端 URL 参数解析器
+        // 🧙‍♂️ 纯前端 URL 参数解析引擎
         function getQueryParams() {
             const params = {};
             const search = window.location.search.substring(1);
@@ -319,26 +319,40 @@
             return params;
         }
     
-        // 🚀 页面加载时动态吞入参数并渲染
+        // 🚀 页面加载时无缝入侵渲染
         window.addEventListener('DOMContentLoaded', () => {
             const params = getQueryParams();
             
-            // 假设你页面上有一个展示产品名字的 ID 叫 target-product-name
+            // 1. 如果有传入产品名，精准替换 JSON 块中的对应字段
             if (params.name) {
-                document.getElementById('target-product-name').innerText = params.name;
+                const targetBrandEl = document.getElementById('json-target-brand');
+                const summaryBrandEl = document.getElementById('json-summary-brand');
+                if (targetBrandEl) targetBrandEl.innerText = params.name;
+                if (summaryBrandEl) summaryBrandEl.innerText = params.name;
+                
+                // 动态将页面的行业关键词描述也同步微调，显得更加真实
+                const keywordEl = document.getElementById('json-keyword');
+                if (keywordEl) keywordEl.innerText = `generative software audit for ${params.name.toLowerCase()}`;
             }
             
-            // 假设你页面上有一个动态展示竞品列表的容器 ID 叫 competitor-list
+            // 2. 动态替换 JSON 中的竞品列表
             if (params.competitors) {
                 const compArray = params.competitors.split(",");
-                const listContainer = document.getElementById('competitor-list');
+                const listContainer = document.getElementById('json-competitor-list');
+                
                 if (listContainer) {
-                    listContainer.innerHTML = ""; // 清空老静态静态数据
-                    compArray.forEach(comp => {
-                        const li = document.createElement('li');
-                        li.className = "competitor-item-style"; // 保持你原本的样式类名
-                        li.innerText = `${comp} (Traffic Share: 100% 📈)`;
-                        listContainer.appendChild(li);
+                    listContainer.innerHTML = ""; // 擦除原本硬编码的 FCFBuddy 竞品
+                    
+                    compArray.forEach((comp, index) => {
+                        const isLast = index === compArray.length - 1;
+                        const formattedComp = comp.trim();
+                        
+                        // 动态组装黑客风代码行
+                        const lineSpan = document.createElement('span');
+                        lineSpan.className = "code-val";
+                        lineSpan.innerText = `        "${formattedComp}"${isLast ? "" : ","}\n`;
+                        
+                        listContainer.appendChild(lineSpan);
                     });
                 }
             }
