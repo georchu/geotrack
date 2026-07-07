@@ -3,306 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEOTrack - Stop Losing Customers to ChatGPT & Perplexity</title>
+    <title>GEOTrack Live Threat Matrix</title>
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
+        :root {
+            --bg-color: #050505;
+            --accent-red: #ff3333;
+            --text-gray: #888;
+            --card-bg: #0d0d0d;
+            --border-color: #222;
         }
+
         body {
-            margin: 0;
-            padding: 0;
+            background-color: var(--bg-color);
+            color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #0B0F19;
-            color: #E2E8F0;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
+            margin: 0;
             padding: 40px 20px;
+            display: flex;
+            justify-content: center;
         }
-        header {
-            display: table;
+
+        .container {
             width: 100%;
-            margin-bottom: 60px;
+            max-width: 700px;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
         }
-        .logo {
-            display: table-cell;
-            font-size: 20pt;
-            font-weight: 800;
-            color: #38BDF8;
+
+        .header-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .badge {
+            background-color: rgba(255, 51, 51, 0.1);
+            color: var(--accent-red);
+            border: 1px solid var(--accent-red);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 10px 0;
             letter-spacing: -0.5px;
         }
-        .logo span {
-            color: #FFFFFF;
-        }
-        .badge {
-            display: inline-block;
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            color: #38BDF8;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 10pt;
-            font-weight: 600;
-            margin-bottom: 24px;
-        }
-        h1 {
-            font-size: 32pt;
-            font-weight: 800;
-            line-weight: 1.2;
-            color: #FFFFFF;
-            letter-spacing: -1px;
-            margin: 0 0 20px 0;
-        }
-        .highlight {
-            background: linear-gradient(135deg, #38BDF8 0%, #818CF8 100%);
+
+        .target-title {
+            color: #ffffff;
+            background: linear-gradient(45deg, #fff, #888);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .subtitle {
-            font-size: 14pt;
-            color: #94A3B8;
-            max-width: 700px;
-            margin-bottom: 40px;
+
+        p.desc {
+            color: var(--text-gray);
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0 0 30px 0;
         }
-        .hero-cta {
-            background: #1E293B;
-            border: 1px solid #334155;
-            padding: 24px;
-            border-radius: 12px;
-            max-width: 600px;
-            margin-bottom: 80px;
-        }
-        .cta-title {
-            font-weight: 600;
-            font-size: 11pt;
-            color: #FFFFFF;
-            margin-bottom: 12px;
-        }
-        .form-group {
-            display: table;
-            width: 100%;
-        }
-        .form-input-cell {
-            display: table-cell;
-            width: 70%;
-            padding-right: 12px;
-        }
-        .form-btn-cell {
-            display: table-cell;
-            width: 30%;
-            vertical-align: top;
-        }
-        input[type="email"] {
-            width: 100%;
-            padding: 14px 16px;
-            background: #0B0F19;
-            border: 1px solid #475569;
-            border-radius: 6px;
-            color: #FFFFFF;
-            font-size: 11pt;
-        }
-        input[type="email"]:focus {
-            border-color: #38BDF8;
-            outline: none;
-        }
-        .btn {
-            width: 100%;
-            padding: 14px 20px;
-            background: linear-gradient(135deg, #38BDF8 0%, #6366F1 100%);
-            border: none;
-            border-radius: 6px;
-            color: #FFFFFF;
-            font-weight: 700;
-            font-size: 11pt;
-            cursor: pointer;
-            text-align: center;
-        }
+
         .section-title {
-            font-size: 18pt;
+            font-size: 12px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
             font-weight: 700;
-            color: #FFFFFF;
-            margin-top: 60px;
-            margin-bottom: 12px;
-            border-left: 4px solid #38BDF8;
-            padding-left: 12px;
         }
-        .section-desc {
-            color: #94A3B8;
-            font-size: 11pt;
-            margin-bottom: 30px;
-            max-width: 800px;
+
+        ul.competitor-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 35px 0;
         }
-        .demo-box {
-            background: #111827;
-            border: 1px solid #1F2937;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 60px;
+
+        ul.competitor-list li {
+            border: 1px solid var(--border-color);
+            background-color: #121212;
+            padding: 14px 18px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
         }
-        .math {
-            font-family: 'Times New Roman', serif;
-            font-style: italic;
+
+        ul.competitor-list li .traffic-share {
+            color: #ffcc00;
+            font-size: 13px;
             font-weight: bold;
-            color: #38BDF8;
         }
-        .code-block {
-            background: #011627;
-            border-radius: 8px;
+
+        .cta-box {
+            border: 1px dashed var(--accent-red);
+            background-color: rgba(255, 51, 51, 0.02);
             padding: 20px;
-            font-family: "SF Mono", Monaco, Consolas, monospace;
-            font-size: 10pt;
-            color: #ADDB67;
-            overflow-x: auto;
-            border: 1px solid #1E2937;
-        }
-        .code-key { color: #7FDBCA; }
-        .code-val { color: #ECC48D; }
-        .code-bool { color: #FF5874; }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            margin-bottom: 40px;
-        }
-        th, td {
-            padding: 16px;
-            text-align: left;
-            border-bottom: 1px solid #1F2937;
-        }
-        th {
-            background-color: #1E2937;
-            color: #FFFFFF;
-            font-weight: 600;
-            font-size: 11pt;
-        }
-        td {
-            font-size: 11pt;
-            color: #E2E8F0;
-        }
-        tr:hover td {
-            background-color: rgba(255, 255, 255, 0.02);
-        }
-        .recommendation-table th {
-            background-color: #0F172A;
-            border-bottom: 2px solid #38BDF8;
-        }
-        .price-card {
-            background: #1E293B;
-            border-top: 4px solid #6366F1;
-        }
-        .price-card.featured {
-            background: #0F172A;
-            border-top: 4px solid #38BDF8;
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.15);
-        }
-        .footer {
-            margin-top: 100px;
-            border-top: 1px solid #1F2937;
-            padding-top: 30px;
+            border-radius: 6px;
             text-align: center;
-            color: #64748B;
-            font-size: 10pt;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.02);
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">GEO<span>Track</span></div>
-        </header>
 
-        <main>
-            <div class="badge">Next-Gen Generative Engine Optimization (GEO)</div>
-            <h1>Stop Losing Customers to <br><span class="highlight">ChatGPT & Perplexity.</span></h1>
-            <p class="subtitle">
-                Over 65% of tech buyers and high-net-worth investors now ask AI Large Language Models for product recommendations instead of browsing traditional Google SEO. If your brand isn’t recommended there, you are invisible.
-            </p>
-
-            <div class="hero-cta">
-                <div class="cta-title">🎯 Scan your industry keywords before your competitors do</div>
-                <!-- 激活真实后端：将 action 替换为你的 Formspree 专属 URL -->
-                <form action="https://formspree.io/f/mrewowez" method="POST" class="form-group">
-                    <div class="form-input-cell">
-                        <!-- name="email" 是 Formspree 解析所必须的 -->
-                        <input type="email" name="email" placeholder="Enter your work email (e.g., alex@yourcompany.com)" required>
-                    </div>
-                    <div class="form-btn-cell">
-                        <button type="submit" class="btn">Get Free Audit</button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="section-title">📊 Real-Time AI Visibility Snapshot</div>
-            <p class="section-desc">
-                Traditional keywords are dead. AI engines synthesize massive multi-source web inputs into concise answers. Here is what an automated auditing session extracts behind the scenes when measuring your brand's AI Share of Voice (<span class="math">SoV</span>):
-            </p>
-
-            <div class="demo-box">
-                <div style="margin-bottom: 15px; font-weight: 600; color: #94A3B8; font-size: 10pt; text-transform: uppercase; letter-spacing: 1px;">
-                    🛰️ Live Agent Output (Structured Core JSON)
-                </div>
-                <pre class="code-block">{
-    <span class="code-key">"keyword"</span>: <span class="code-val">"free cash flow valuation and dcf analysis on ios"</span>,
-    <span class="code-key">"target_brand"</span>: <span class="code-val">"FCFBuddy"</span>,
-    <span class="code-key">"brand_mentioned"</span>: <span class="code-bool">false</span>,
-    <span class="code-key">"rank"</span>: <span class="code-val">0</span>,
-    <span class="code-key">"competitors_mentioned"</span>: [
-        <span class="code-val">"DCF Valuation App"</span>,
-        <span class="code-val">"onbalance: cash flow tracker"</span>,
-        <span class="code-val">"Apple Numbers"</span>,
-        <span class="code-val">"MoneyPatrol"</span>
-    ],
-    <span class="code-key">"summary"</span>: <span class="code-val">"The text discusses various elite tools for cash flow valuation but does not mention 'FCFBuddy'."</span>
-}</pre>
-            </div>
-
-            <div class="section-title">💎 Enterprise-Grade Pricing Plans</div>
-            <p class="section-desc">
-                Unlock the exact AI prompts, real-time citation analysis, and actionable Generative Engine Optimization guidelines to insert your software into conversational recommendation flows.
-            </p>
-
-            <table class="recommendation-table">
-                <thead>
-                    <tr>
-                        <th>Tier Plan</th>
-                        <th>Monthly Price</th>
-                        <th>Keyword Tracks</th>
-                        <th>Audit Frequency</th>
-                        <th>Core Benefits</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="price-card">
-                        <td style="font-weight: 700; color: #FFFFFF;">Starter (Indie)</td>
-                        <td style="font-weight: 700; color: #38BDF8;">$39 <span style="font-size:9pt; font-weight:normal; color:#94A3B8;">/mo</span></td>
-                        <td>3 Keywords</td>
-                        <td>2x per week</td>
-                        <td>Email Weekly Briefing, Basic dashboard tracking</td>
-                    </tr>
-                    <tr class="price-card featured">
-                        <td style="font-weight: 700; color: #FFFFFF;">Growth (Scale) 🌟</td>
-                        <td style="font-weight: 700; color: #38BDF8;">$119 <span style="font-size:9pt; font-weight:normal; color:#94A3B8;">/mo</span></td>
-                        <td style="font-weight: bold;">15 Keywords</td>
-                        <td style="font-weight: bold; color: #38BDF8;">Daily (Perplexity Sonar)</td>
-                        <td><strong>iOS Live Push Notifications (APNs)</strong>, Competitor Disruption Alerts, Advanced GEO Guidelines</td>
-                    </tr>
-                    <tr class="price-card">
-                        <td style="font-weight: 700; color: #FFFFFF;">Pro (Agency)</td>
-                        <td style="font-weight: 700; color: #38BDF8;">$299 <span style="font-size:9pt; font-weight:normal; color:#94A3B8;">/mo</span></td>
-                        <td>50+ Keywords</td>
-                        <td>Real-time / On-Demand</td>
-                        <td>Custom Webhook Triggers, Fully Automated Multi-Model Optimization Sandbox</td>
-                    </tr>
-                </tbody>
-            </table>
-        </main>
-
-        <footer class="footer">
-            &copy; 2026 GEOTrack Corporation. Built for the One-Person AI Company Era. All rights reserved.
-        </footer>
+<div class="container">
+    <div class="header-status">
+        <div style="font-size: 13px; color: var(--text-gray); font-family: monospace;">SYSTEM: GEO_TRACK_v1.0</div>
+        <div class="badge">⚠️ AI INVISIBLE THREAT</div>
     </div>
+
+    <h1>GEO Audit: <span id="target-product-name" class="target-title">Loading Startup...</span></h1>
+    <p class="desc">
+        Our Generative Engine Optimization (GEO) agents scanned global LLM architectures (Perplexity, ChatGPT Search, Gemini Advanced). The data reveals your brand visibility in your specific software niche is currently <strong>0.00%</strong>.
+    </p>
+
+    <div class="section-title">Dominating Competitors (Stealing 100% Search Traffic)</div>
+    <ul id="competitor-list" class="competitor-list">
+        <li style="color: var(--text-gray); border-style: dashed;">Analyzing search engine indexing matrix...</li>
+    </ul>
+
+    <div class="cta-box">
+        <div style="font-size: 15px; font-weight: 600; color: #fff;">Intercept This Traffic Before Competitors Lock the Market</div>
+        <div style="font-size: 13px; color: var(--text-gray); margin-top: 5px;">Deploy custom vector-injection & algorithmic visibility protocols within 24 hours.</div>
+        <a href="mailto:audit@guoron.com?subject=Unlock GEO Growth Track" class="cta-btn">Contact GEO Specialist</a>
+    </div>
+</div>
+
+<script>
+    // 🧙‍♂️ 纯前端高级 URL 参数解析引擎
+    function getQueryParams() {
+        const params = {};
+        const search = window.location.search.substring(1);
+        if (search) {
+            const pairs = search.split("&");
+            for (let i = 0; i < pairs.length; i++) {
+                const pair = pairs[i].split("=");
+                params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
+            }
+        }
+        return params;
+    }
+
+    // 🚀 页面渲染主引擎
+    window.addEventListener('DOMContentLoaded', () => {
+        const params = getQueryParams();
+        
+        // 1. 动态吞入产品名字
+        if (params.name) {
+            document.getElementById('target-product-name').innerText = params.name;
+        } else {
+            document.getElementById('target-product-name').innerText = "Your Product";
+        }
+        
+        // 2. 动态切割并渲染竞品列表
+        if (params.competitors) {
+            const compArray = params.competitors.split(",");
+            const listContainer = document.getElementById('competitor-list');
+            
+            if (listContainer) {
+                listContainer.innerHTML = ""; // 清空加载状态的占位骨架屏
+                
+                compArray.forEach(comp => {
+                    const li = document.createElement('li');
+                    
+                    // 创建名字区域
+                    const nameSpan = document.createElement('span');
+                    nameSpan.innerText = comp.trim();
+                    
+                    // 创建右侧高能高亮流量标签
+                    const shareSpan = document.createElement('span');
+                    shareSpan.className = "traffic-share";
+                    shareSpan.innerText = "100% Captured 📈";
+                    
+                    li.appendChild(nameSpan);
+                    li.appendChild(shareSpan);
+                    listContainer.appendChild(li);
+                });
+            }
+        }
+    });
+</script>
+
 </body>
 </html>
