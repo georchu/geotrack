@@ -350,7 +350,7 @@
                         // 动态组装黑客风代码行
                         const lineSpan = document.createElement('span');
                         lineSpan.className = "code-val";
-                        lineSpan.innerText = `        "${formattedComp}"${isLast ? "" : ","}\n`;
+                        lineSpan.innerText = `        "${formattedComp}"${isLast ? "" : ",\n"}`;
                         
                         listContainer.appendChild(lineSpan);
                     });
